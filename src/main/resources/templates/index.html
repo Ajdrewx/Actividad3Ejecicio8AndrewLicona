@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Cachones.com</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div><h1>LA MALDITA MAQUINA</h1></div>     
+        <hr>
+        <h4>LISTA DE PERSONAS</h4>
+        <hr>
+        <!-- Mostrar solo si la lista de usuarios no está vacía -->
+        <div th:if="${usuarios != null and not #lists.isEmpty(usuarios)}">
+            <table border="1">
+                <tr>
+                    <th>CEDULA:</th>
+                    <th>CONTRASEÑA:</th>
+                    <th>NOMBRES:</th>
+                    <th>APELLIDOS:</th>
+                    <th>ROL:</th>
+                    <th>EMAIL:</th>
+                    <th>TELEFONO:</th>
+                    <th>ESTADO:</th>
+                    <th>FECHA DE REGISTRO:</th>
+                </tr>
+                <!-- Iterar sobre la lista de usuarios -->
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.code}"></td>
+                    <td th:text="${usuario.password}"></td>
+                    <td th:text="${usuario.name}"></td>
+                    <td th:text="${usuario.apellidos}"></td>
+                    <td th:text="${usuario.rol}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.telefono}"></td>
+                    <td th:text="${usuario.estado}"></td>
+                    <td th:text="${usuario.fechaRegistro}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Mostrar mensaje si la lista de usuarios está vacía -->
+        <div th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
+            La lista de Usuarios está vacía.
+        </div>
+    </body>
+</html>
