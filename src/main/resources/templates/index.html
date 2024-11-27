@@ -1,47 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Cachones.com</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div><h1>LA MALDITA MAQUINA</h1></div>     
-        <hr>
-        <h4>LISTA DE PERSONAS</h4>
-        <hr>
-        <!-- Mostrar solo si la lista de usuarios no está vacía -->
-        <div th:if="${usuarios != null and not #lists.isEmpty(usuarios)}">
-            <table border="1">
-                <tr>
-                    <th>CEDULA:</th>
-                    <th>CONTRASEÑA:</th>
-                    <th>NOMBRES:</th>
-                    <th>APELLIDOS:</th>
-                    <th>ROL:</th>
-                    <th>EMAIL:</th>
-                    <th>TELEFONO:</th>
-                    <th>ESTADO:</th>
-                    <th>FECHA DE REGISTRO:</th>
-                </tr>
-                <!-- Iterar sobre la lista de usuarios -->
-                <tr th:each="usuario : ${usuarios}">
-                    <td th:text="${usuario.code}"></td>
-                    <td th:text="${usuario.password}"></td>
-                    <td th:text="${usuario.name}"></td>
-                    <td th:text="${usuario.apellidos}"></td>
-                    <td th:text="${usuario.rol}"></td>
-                    <td th:text="${usuario.email}"></td>
-                    <td th:text="${usuario.telefono}"></td>
-                    <td th:text="${usuario.estado}"></td>
-                    <td th:text="${usuario.fechaRegistro}"></td>
-                </tr>
-            </table>
-        </div>
+<head>
+    <title>Cachones.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-        <!-- Mostrar mensaje si la lista de usuarios está vacía -->
-        <div th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
-            La lista de Usuarios está vacía.
-        </div>
-    </body>
+    <!-- Header centrado usando tabla -->
+    <table width="100%">
+        <tr>
+            <td align="center">
+                <header th:replace="plantillas/partes :: cabecero"></header>
+            </td>
+        </tr>
+    </table>
+
+    <table width="100%" height="100%">
+        <tr>
+            <td align="center" valign="middle">
+                <div>
+                    <h1>LA MALDITA MAQUINA</h1>
+                </div>
+                <a th:href="@{/agregar}">AGREGAR USUARIO</a>
+                <hr>
+                <h4>LISTA DE PERSONAS</h4>
+                <hr>
+
+                <div th:if="${usuarios != null and not #lists.isEmpty(usuarios)}">
+                    <table border="1" align="center">
+                        <tr>
+                            <th>CEDULA:</th>
+                            <th>CONTRASEÑA:</th>
+                            <th>NOMBRES:</th>
+                            <th>APELLIDOS:</th>
+                            <th>ROL:</th>
+                            <th>EMAIL:</th>
+                            <th>TELEFONO:</th>
+                            <th>ESTADO:</th>
+                            <th>FECHA DE REGISTRO:</th>
+                            <th>ACCIONES:</th> 
+                        </tr>
+                        <tr th:each="usuario : ${usuarios}">
+                            <td th:text="${usuario.code}"></td>
+                            <td th:text="${usuario.password}"></td>
+                            <td th:text="${usuario.name}"></td>
+                            <td th:text="${usuario.apellidos}"></td>
+                            <td th:text="${usuario.rol}"></td>
+                            <td th:text="${usuario.email}"></td>
+                            <td th:text="${usuario.telefono}"></td>
+                            <td th:text="${usuario.estado}"></td>
+                            <td th:text="${usuario.fechaRegistro}"></td>
+                            <td>
+                                <a th:href="@{/editar/{code}(code=${usuario.code})}">Editar</a> &nbsp;&nbsp;
+                                <a th:href="@{/eliminar/{code}(code=${usuario.code})}">Eliminar</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div th:if="${usuarios == null or #lists.isEmpty(usuarios)}">
+                    La lista de Usuarios está vacía.
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <!-- Footer centrado usando tabla -->
+    <table width="100%">
+        <tr>
+            <td align="center">
+                <footer th:replace="plantillas/partes :: pie"></footer>
+            </td>
+        </tr>
+    </table>
+
+</body>
 </html>
